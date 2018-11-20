@@ -1,25 +1,26 @@
 #include "../inc/nviewer.h"
 
 FILE *fp = NULL;
+char *devname;
 
-static void my_packet_handler(
+static void packet_handler(
     u_char *args,
     const struct pcap_pkthdr *packet_header,
     const u_char *packet
 )
 {
+	int size_ip;
 	static int i = 0;
-
-	/* First, lets make sure we have an IP packet */
-    struct ether_header *eth_header;
-
-    eth_header = (struct ether_header *) packet;
-    fp = fopen(LOGFILE, "w+");
-    // if (ntohs(eth_header->ether_type) != ETHERTYPE_IP) {
-    //     fprintf(fp, "Not an IP packet. Skipping...\n\n");
-    //     return;
-    // }
-    fprintf(fp, "Packets: %d\n", i);
+	const struct sniff_ip *ip;
+	
+	ip = (struct sniff_ip*)(packet + SIZE_ETHERNET);
+    fp = fopen(LOGFILE, "a+");
+	size_ip = IP_HL(ip)*4;
+	if (size_ip < 20) {
+		fprintf(fp, "   * Invalid IP header length: %u bytes\n", size_ip);
+		return;
+	}
+    fprintf(fp, "%s %s\n", devname, inet_ntoa(ip->ip_src));
     fclose(fp);
     i++;
 }
@@ -31,6 +32,7 @@ int start_sniff(t_config *cfg)
     pcap_t *handle;
     int timeout_limit = 10000; /* In milliseconds */
 
+    devname = strdup(cfg->dev);
     /* Open device for live capture */
     handle = pcap_open_live(
             cfg->dev,
@@ -45,6 +47,6 @@ int start_sniff(t_config *cfg)
         fclose(fp);
         return 2;
      }     
-    pcap_loop(handle, 0, my_packet_handler, NULL);
+    pcap_loop(handle, 0, packet_handler, NULL);
     return (0);
 }

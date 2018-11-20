@@ -5,16 +5,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 
 #include <fcntl.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <sys/socket.h>
 
 #include <errno.h>
 
 #include <signal.h>
 
-#include <pcap/pcap.h>
+#include <pcap.h>
 #include <arpa/inet.h>
 #include <netinet/in.h>
 #include <net/ethernet.h>
@@ -28,11 +30,23 @@
 #define PROMPT "nviewer> "
 #define MAX_CMD 6
 
+/*
+** SNIFF
+*/
+
+#define IP_HL(ip) (((ip)->ip_vhl) & 0x0f)
+#define SIZE_ETHERNET 14
+
+/*
+** FILES
+*/
+
 #define PIDFILE "nviewer.pid"
 #define LOGFILE "nviewer.log"
 #define ERRFILE "nviewer.errors"
 #define CONFILE "nviewer.conf"
 #define DEBFILE "nviewer.debug"
+
 /*
 ** VARS
 */
