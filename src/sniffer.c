@@ -14,13 +14,14 @@ static void my_packet_handler(
     struct ether_header *eth_header;
 
     eth_header = (struct ether_header *) packet;
-    if (ntohs(eth_header->ether_type) != ETHERTYPE_IP) {
-        fprintf(fp, "Not an IP packet. Skipping...\n\n");
-        return;
-    }
+    fp = fopen(LOGFILE, "w+");
+    // if (ntohs(eth_header->ether_type) != ETHERTYPE_IP) {
+    //     fprintf(fp, "Not an IP packet. Skipping...\n\n");
+    //     return;
+    // }
     fprintf(fp, "Packets: %d\n", i);
+    fclose(fp);
     i++;
-    return;
 }
 
 
@@ -45,6 +46,5 @@ int start_sniff(t_config *cfg)
         return 2;
      }     
     pcap_loop(handle, 0, my_packet_handler, NULL);
-    fclose(fp);
     return (0);
 }

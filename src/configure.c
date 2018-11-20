@@ -27,7 +27,7 @@ char *getconf_var(char *varname)
 					if (var[1])
 					{
 						/* then we free 2d array and turn value of var */
-						// ft_two_del(var);
+						/* ft_two_del(var); <- Leaks with last iteration. */
 						close(fd);
 						return (var[1]);
 					}
