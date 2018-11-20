@@ -25,11 +25,10 @@ void entry_switcher(t_input *inp)
 	{
 		// Travel trough function pointer array
 		// to find the command we need
-		// printf("w: %s == %s\n", inp->buf, g_cmds[inp->cmd].name);
 		if (strcmp(inp->buf, g_cmds[inp->cmd].name) == 0)
 		{
 			g_cmds[inp->cmd].func_ptr(inp);
-			exit(0); // Exit after succesful operation
+			exit(0) ; // Exit after succesful operation
 		}
 		inp->cmd++;
 	}

@@ -6,12 +6,41 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <fcntl.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 
+#include <errno.h>
+
+#include <signal.h>
+
+#include <pcap/pcap.h>
+#include <arpa/inet.h>
+#include <netinet/in.h>
+#include <net/ethernet.h>
+
+#include "structs.h"
+#include "../lib/libft/libft.h"
+#include "../lib/libft/get_next_line.h"
+
+#define LISTEN_DELAY 2
 
 #define PROMPT "nviewer> "
-#define MAX_CMD 2
+#define MAX_CMD 6
+
+#define PIDFILE "nviewer.pid"
+#define LOGFILE "nviewer.log"
+#define ERRFILE "nviewer.errors"
+#define CONFILE "nviewer.conf"
+#define DEBFILE "nviewer.debug"
+/*
+** VARS
+*/
+
+enum conf_variables {
+	VAR_IFACE,
+	VAR_SUP /* 2ch */
+} conf_vars;
 
 /*
 ** ERRORS
@@ -19,14 +48,8 @@
 
 #define ERR_CMD_NOTFOUND "command not found."
 #define ERR_FORK_FAIL "fork failed."
-
-typedef struct	s_input
-{
-	char		*buf;
-	int			cmd;
-	int			flags; // TODO: implement storage for
-					   // flags in binary format
-}				t_input;
+#define ERR_DAEMON_RUNNING "daemon already running."
+#define ERR_DAEMON_NOTRUNNING "daemon is not running."
 
 typedef struct s_command
 {
@@ -50,6 +73,35 @@ void entry_switcher(t_input *inp);
 
 void cmd_start(t_input *inp);
 void cmd_stop(t_input *inp);
+void cmd_help(t_input *inp);
+
+/*
+** DAEMON.C
+*/
+
+void start_daemon(t_config *cfg);
+void stop_daemon(void);
+
+/*
+** SNIFFER.C
+*/
+
+int start_sniff(t_config *cfg);
+
+/*
+** CONFIGURE.C
+*/
+
+char *getconf_var(char *varname);
+void setconf_var(char *var, char *value);
+t_config get_configure(void);
+
+/*
+** UTILS.C
+*/
+
+pid_t check_pidfile(void);
+void daemon_prefsetup(void);
 
 /*
 ** ERRORS.C

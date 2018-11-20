@@ -2,49 +2,28 @@
 
 void cmd_start(t_input *inp)
 {
-	FILE *fd = NULL;
-	printf("START");
-	
-	// fork
+	t_config cfg;
 
-	// if parent
-	// 	exit
-	// elif child
-	// 	Do daemon stuff
-
-	pid_t pid;
-	pid_t sid;
-
-	pid = fork();
-	if (pid < 0)
-		throw_error(ERR_FORK_FAIL);
-	else if (pid == 0)
+	if (check_pidfile() < 0)
 	{
-		umask(0);
-		sid = setsid();
-		if (sid < 0)
-			exit (1);
-		chdir("/tmp");
-		close(STDIN_FILENO);
-		close(STDOUT_FILENO);
-		close(STDERR_FILENO);
-		fd = fopen("log.txt", "w+");
-		while (1)
-		{
-			sleep(2);
-			fprintf(fd, "Logging info ...\n");
-			fflush(fd);
-		} 
-		fclose(fd);
+		cfg = get_configure();
+		start_daemon(&cfg);
 	}
 	else
-	{
-		printf("pid of child: %d\n", pid);
-		exit(0);
-	}
+		throw_error(ERR_DAEMON_RUNNING);
 }
 
 void cmd_stop(t_input *inp)
 {
-	printf("STOP");	
+	stop_daemon();
+}
+
+void cmd_select(t_input *inp)
+{
+
+}
+
+void cmd_help(t_input *inp)
+{
+	printf("Network Viewer\n\nstart - start daemon\nstop - stop daemon\nhelp\n\nauthor: github.com/destimon\n");
 }

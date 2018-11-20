@@ -9,9 +9,10 @@ OBJ_DIR 		= ./obj/
 SRC_DIR 		= ./src/
 
 CC 				= gcc
-CFLAGS 			= -I$(HDR_DIR) -I$(LIBFT_HDR_DIR) #-Wall -Werror -Wextra \
+CFLAGS 			= -I$(HDR_DIR) -I$(LIBFT_HDR_DIR) #-Wall -Werror -Wextra
 
-SRC 			= main.c cmd.c errors.c input.c
+SRC 			= main.c cmd.c errors.c input.c daemon.c utils.c sniffer.c \
+					configure.c
 OBJ 			= $(addprefix $(OBJ_DIR), $(SRC:.c=.o))
 
 LIB_BIN 		= $(LIBFT_DIR)libft.a
@@ -21,7 +22,7 @@ LIB 			= $(MAKE) -C $(LIBFT_DIR)
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJ)
-	$(CC) $(OBJ) $(LIBFT_FLAGS) -o $(NAME)
+	$(CC) $(OBJ) $(LIBFT_FLAGS) -o $(NAME) -lpcap
 
 $(OBJ): | $(OBJ_DIR)
 
