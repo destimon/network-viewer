@@ -27,8 +27,21 @@ void cmd_select(t_input *inp)
 	else
 	{
 		setconf_var("iface", inp->query[2]);
-		printf("daemon successfuly terminated.\n");
+		printf("interface successfuly changed.\n");
 	}
+}
+
+void cmd_show(t_input *inp)
+{
+	if (!inp->query || ft_elems(inp->query) != 3
+		|| !inp->query[2] || !ft_strequ(inp->query[2], "count")
+		|| !inp->query[1])
+			throw_error("invalid syntax.");
+	// else
+	// {
+	// 	setconf_var("iface", inp->query[2]);
+	// 	printf("daemon successfuly terminated.\n");
+	// }
 }
 
 void cmd_help(t_input *inp)

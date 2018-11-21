@@ -19,8 +19,9 @@ t_input *alloc_input(char **arg)
 
 void entry_switcher(t_input *inp)
 {
-	register int i = inp->cmd; /* register may be useless, but
-								*  dude, it's C programming, GOTTA GO FAST */
+	/* register may be useless, but 
+	dude, it's C programming, GOTTA GO FAST */
+	register int i = inp->cmd;
 	char *cmd;
 
 	if (!inp->query || !inp->query[0])
@@ -28,8 +29,8 @@ void entry_switcher(t_input *inp)
 	cmd = strtok(inp->query[0], "\n"); /* Delete linebreak from end */
 	while (i < MAX_CMD)
 	{
-		// Travel trough function pointer array
-		// to find the command we need
+		/* Travel trough function pointer array
+		to find the command we need */
 		if (ft_strequ(cmd, g_cmds[i].name))
 		{
 			g_cmds[i].func_ptr(inp);

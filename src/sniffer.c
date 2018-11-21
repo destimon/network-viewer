@@ -3,26 +3,62 @@
 FILE *fp = NULL;
 char *devname;
 
+static void record_recieve(char *ip)
+{ 
+	FILE *tmpfile = NULL;
+	char buf[1024 + 1];																																																																																																																																																																																																																						
+	char **lines = NULL;
+	char **tmp = NULL;
+	int num = 0;
+	bool is_recorded = false;
+
+	fp = fopen(LOGFILE, "a+");
+	tmpfile = fopen(LOGFILE2, "a+");
+	if (fp && tmpfile)
+	{
+		while (fgets(buf, 1024, fp) != NULL)
+		{
+			tmp = ft_strsplit(buf, ' ');
+			/* if ip already recorded */
+			if (ft_strequ(tmp[1], ip))
+			{
+				/* increment number of packets */
+				lines = ft_strsplit(buf, ' ');
+				num = atoi(lines[2]) + 1;
+				fprintf(tmpfile, "%s %s %d\n", devname, ip, num);
+				/* Tell program to add new ip */
+				is_recorded = true;
+			}
+			else /* other lines re-record */
+			{
+				fprintf(tmpfile, "%s", buf);
+			}
+		}
+		/* Add new ip */
+		if (is_recorded == false)
+			fprintf(tmpfile, "%s %s %d\n", devname, ip, 1);
+		fclose(fp);
+		fclose(tmpfile);
+		remove(LOGFILE);
+		rename(LOGFILE2, LOGFILE);
+	}
+}
+
 static void packet_handler(
     u_char *args,
     const struct pcap_pkthdr *packet_header,
-    const u_char *packet
-)
+    const u_char *packet)
 {
-	int size_ip;
-	static int i = 0;
 	const struct sniff_ip *ip;
+	int size_ip;
 	
 	ip = (struct sniff_ip*)(packet + SIZE_ETHERNET);
-    fp = fopen(LOGFILE, "a+");
 	size_ip = IP_HL(ip)*4;
 	if (size_ip < 20) {
-		fprintf(fp, "   * Invalid IP header length: %u bytes\n", size_ip);
+		/* fprintf(fp, "   * Invalid IP header length: %u bytes\n", size_ip); */
 		return;
 	}
-    fprintf(fp, "%s %s\n", devname, inet_ntoa(ip->ip_src));
-    fclose(fp);
-    i++;
+	record_recieve(inet_ntoa(ip->ip_src));
 }
 
 

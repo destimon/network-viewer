@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <stdbool.h>
 
 #include <fcntl.h>
 #include <sys/types.h>
@@ -43,6 +44,7 @@
 
 #define PIDFILE "nviewer.pid"
 #define LOGFILE "nviewer.log"
+#define LOGFILE2 "nviewer.log.2"
 #define ERRFILE "nviewer.errors"
 #define CONFILE "nviewer.conf"
 #define DEBFILE "nviewer.debug"
@@ -110,6 +112,12 @@ int start_sniff(t_config *cfg);
 char *getconf_var(char *varname);
 void setconf_var(char *var, char *value);
 t_config get_configure(void);
+
+/*
+** SEARCH.C
+*/
+
+void search_ip(t_input *inp);
 
 /*
 ** UTILS.C
