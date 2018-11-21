@@ -9,7 +9,6 @@ pid_t check_pidfile()
 	FILE *fp = NULL;
 	char a_pid[512 + 1];
 	pid_t pid = -1;
-
 	fp = fopen("nviewer.pid", "r");
 	if (fp)
 	{

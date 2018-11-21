@@ -20,7 +20,15 @@ void cmd_stop(t_input *inp)
 
 void cmd_select(t_input *inp)
 {
-
+	if (!inp->query || ft_elems(inp->query) != 3
+		|| !inp->query[1] || !ft_strequ(inp->query[1], "iface")
+		|| !inp->query[2])
+			throw_error("invalid syntax.");
+	else
+	{
+		setconf_var("iface", inp->query[2]);
+		printf("daemon successfuly terminated.\n");
+	}
 }
 
 void cmd_help(t_input *inp)

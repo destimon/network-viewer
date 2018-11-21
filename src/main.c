@@ -5,7 +5,7 @@ t_command g_cmds[] = {
 	{"start", "Start Daemon process", &cmd_start},
 	{"stop", "Stop Daemon process", &cmd_stop},
 	{"show", "Stop Daemon process", &cmd_stop},
-	{"select", "Stop Daemon process", &cmd_stop},
+	{"select", "Stop Daemon process", &cmd_select},
 	{"stat", "Stop Daemon process", &cmd_stop},
 	{"exit", "Stop Daemon process", &cmd_stop},
 	{"--help", "Yes, it is.", &cmd_help}
@@ -37,7 +37,7 @@ int main(int argc, char **argv)
 			printf(PROMPT);
 			if (getline(&buf, &size, stdin) > 0)
 			{
-				inp = alloc_input(buf);
+				inp = alloc_input(ft_strsplit(buf, ' '));
 				if (inp)
 					entry_switcher(inp);
 			}
@@ -47,7 +47,7 @@ int main(int argc, char **argv)
 	else
 	{
 		/* Args handle */
-		inp = alloc_input(argv[1]);
+		inp = alloc_input(&argv[1]);
 		if (inp)
 			entry_switcher(inp);
 	}

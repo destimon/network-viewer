@@ -78,7 +78,7 @@ extern t_command g_cmds[];
 ** INPUT.C
 */
 
-t_input *alloc_input(char *buf);
+t_input *alloc_input(char **arg);
 void entry_switcher(t_input *inp);
 
 /*
@@ -87,6 +87,7 @@ void entry_switcher(t_input *inp);
 
 void cmd_start(t_input *inp);
 void cmd_stop(t_input *inp);
+void cmd_select(t_input *inp);
 void cmd_help(t_input *inp);
 
 /*

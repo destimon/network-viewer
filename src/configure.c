@@ -68,7 +68,7 @@ void setconf_var(char *var, char *value)
 
 t_config get_configure()
 {
-	const char* const cvars[VAR_SUP] = {"iface", "sup"};
+	const char* const cvars[VAR_SUP + 1] = {"iface", "sup"};
 	t_config cfg;
 	char *var_value;
 
