@@ -12,7 +12,7 @@ CC 				= gcc
 CFLAGS 			= -I$(HDR_DIR) -I$(LIBFT_HDR_DIR) #-Wall -Werror -Wextra
 
 SRC 			= main.c cmd.c errors.c input.c daemon.c utils.c sniffer.c \
-					configure.c
+					configure.c search.c
 OBJ 			= $(addprefix $(OBJ_DIR), $(SRC:.c=.o))
 
 LIB_BIN 		= $(LIBFT_DIR)libft.a

@@ -4,7 +4,7 @@
 t_command g_cmds[] = {
 	{"start", "Start Daemon process", &cmd_start},
 	{"stop", "Stop Daemon process", &cmd_stop},
-	{"show", "Stop Daemon process", &cmd_stop},
+	{"show", "Stop Daemon process", &cmd_show},
 	{"select", "Stop Daemon process", &cmd_select},
 	{"stat", "Stop Daemon process", &cmd_stop},
 	{"exit", "Stop Daemon process", &cmd_stop},

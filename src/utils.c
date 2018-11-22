@@ -32,7 +32,7 @@ void daemon_prefsetup()
 	sid = setsid();
 	if (sid < 0)
 		exit (1);
-	chdir("/tmp");
+	// chdir("/tmp");
 	close(STDIN_FILENO);
 	close(STDOUT_FILENO);
 	close(STDERR_FILENO);

@@ -34,6 +34,12 @@ typedef struct s_config
 	char *dev;
 }				t_config;
 
+typedef struct s_ip
+{
+        uint32_t address;
+        size_t packets;
+}               t_ip;
+
 struct sniff_ip {
         u_char  ip_vhl;                 /* version << 4 | header length >> 2 */
         u_char  ip_tos;                 /* type of service */

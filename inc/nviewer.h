@@ -91,6 +91,7 @@ void cmd_start(t_input *inp);
 void cmd_stop(t_input *inp);
 void cmd_select(t_input *inp);
 void cmd_help(t_input *inp);
+void cmd_show(t_input *inp);
 
 /*
 ** DAEMON.C

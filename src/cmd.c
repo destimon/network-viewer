@@ -34,14 +34,13 @@ void cmd_select(t_input *inp)
 void cmd_show(t_input *inp)
 {
 	if (!inp->query || ft_elems(inp->query) != 3
-		|| !inp->query[2] || !ft_strequ(inp->query[2], "count")
+		|| !inp->query[2] || !ft_strequ(inp->query[2], "count\n")
 		|| !inp->query[1])
 			throw_error("invalid syntax.");
-	// else
-	// {
-	// 	setconf_var("iface", inp->query[2]);
-	// 	printf("daemon successfuly terminated.\n");
-	// }
+	else
+	{
+		search_ip(inp);	
+	}
 }
 
 void cmd_help(t_input *inp)
