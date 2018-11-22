@@ -4,6 +4,7 @@ void cmd_start(t_input *inp)
 {
 	t_config cfg;
 
+	(void)inp;
 	if (check_pidfile() < 0)
 	{
 		cfg = get_configure();
@@ -15,6 +16,7 @@ void cmd_start(t_input *inp)
 
 void cmd_stop(t_input *inp)
 {
+	(void)inp;
 	stop_daemon();
 }
 
@@ -34,7 +36,7 @@ void cmd_select(t_input *inp)
 void cmd_show(t_input *inp)
 {
 	if (!inp->query || ft_elems(inp->query) != 3
-		|| !inp->query[2] || !ft_strequ(inp->query[2], "count\n")
+		|| !inp->query[2] || !ft_strequ(strtok(inp->query[2], "\n"), "count")
 		|| !inp->query[1])
 			throw_error("invalid syntax.");
 	else
@@ -66,7 +68,15 @@ void cmd_stat(t_input *inp)
 				return ;
 			if (ft_elems(inp->query) > 1)
 			{
-				
+				// printf("%s %s\n", inp->query[1], strtok(line[0], " "));
+				if (strstr(inp->query[1], line[0]))
+				{
+					printf("%s", line[0]);
+					print_padding(longest_len - strlen(line[1]) + 2);
+					printf("%s", line[1]);
+					printf("   ");
+					printf("%s", line[2]);
+				}					
 			}
 			else
 			{
@@ -83,5 +93,23 @@ void cmd_stat(t_input *inp)
 
 void cmd_help(t_input *inp)
 {
-	printf("Network Viewer\n\nstart - start daemon\nstop - stop daemon\nhelp\n\nauthor: github.com/destimon\n");
+	int i = -1;
+
+	(void)inp;
+	printf("\033[1m\033[31mNetwork Viewer\033[0m\n\n");
+	while (++i < MAX_CMD)
+	{
+		printf("\033[1m%s", g_cmds[i].name);
+		if (g_cmds[i].opts)
+			printf(" %s\n", g_cmds[i].opts);
+		else
+			printf("\n");
+		printf("\033[0m%s\n\n", g_cmds[i].desc);
+	}
+}
+
+void cmd_exit(t_input *inp)
+{
+	(void)inp;
+	exit (0);
 }

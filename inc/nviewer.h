@@ -29,7 +29,7 @@
 #define LISTEN_DELAY 2
 
 #define PROMPT "nviewer> "
-#define MAX_CMD 6
+#define MAX_CMD 7
 
 /*
 ** SNIFF
@@ -71,6 +71,7 @@ typedef struct s_command
 {
 	char *name;
 	char *desc;
+	char *opts;
 	void (*func_ptr)(t_input *);
 }				t_command;
 
@@ -93,6 +94,7 @@ void cmd_select(t_input *inp);
 void cmd_show(t_input *inp);
 void cmd_stat(t_input *inp);
 void cmd_help(t_input *inp);
+void cmd_exit(t_input *inp);
 
 /*
 ** DAEMON.C

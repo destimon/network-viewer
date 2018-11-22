@@ -19,8 +19,6 @@ static void create_pidfile(pid_t pid)
 
 void start_daemon(t_config *cfg)
 {
-	FILE *fp = NULL;
-	char buf[1024 + 1];
 	pid_t pid;
 
 	pid = fork();
@@ -53,6 +51,9 @@ void stop_daemon()
 			throw_error(strerror(errno));
 		}
 		else
+		{
+			remove(PIDFILE);
 			printf("daemon successfuly terminated.\n");
+		}
 	}
 }

@@ -42,7 +42,7 @@ static t_ip *alloc_ip_array(size_t *arr_size)
 	return (NULL);
 }
 
-int ip_comparsion(const void * a, const void * b)
+static int ip_comparsion(const void * a, const void * b)
 {
 	t_ip *ip1 = (t_ip*)a;
 	t_ip *ip2 = (t_ip*)b;

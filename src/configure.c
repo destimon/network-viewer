@@ -77,7 +77,7 @@ t_config get_configure()
 	Hope i will have time. */
 	for (int i = 0; i < VAR_SUP; i++)
 	{
-		if (var_value = getconf_var((char*)cvars[i]))
+		if ((var_value = getconf_var((char*)cvars[i])))
 		{
 			cfg.dev = var_value;
 		}

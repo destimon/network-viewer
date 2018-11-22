@@ -49,7 +49,7 @@ int get_longest_value()
 			line = ft_strsplit(buf, ' ');
 			if (line && line[1])
 			{
-				if (longest < strlen(line[1]))
+				if (longest < (int)strlen(line[1]))
 					longest = strlen(line[1]);
 				ft_two_del(line);
 			}

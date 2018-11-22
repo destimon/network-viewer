@@ -9,7 +9,7 @@ OBJ_DIR 		= ./obj/
 SRC_DIR 		= ./src/
 
 CC 				= gcc
-CFLAGS 			= -I$(HDR_DIR) -I$(LIBFT_HDR_DIR) #-Wall -Werror -Wextra
+CFLAGS 			= -I$(HDR_DIR) -I$(LIBFT_HDR_DIR) -Wall -Werror -Wextra
 
 SRC 			= main.c cmd.c errors.c input.c daemon.c utils.c sniffer.c \
 					configure.c search.c

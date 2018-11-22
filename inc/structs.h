@@ -5,10 +5,9 @@
 
 typedef struct	s_input
 {
-	char		**query;
-	int			cmd;
-	int			flags; /* TODO: implement storage for
-					      flags in binary format */
+	char **query;
+	int cmd;
+	int flags; /* TODO: implement storage for flags in binary format */
 }				t_input;
 
 /*
