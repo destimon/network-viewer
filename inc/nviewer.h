@@ -90,8 +90,9 @@ void entry_switcher(t_input *inp);
 void cmd_start(t_input *inp);
 void cmd_stop(t_input *inp);
 void cmd_select(t_input *inp);
-void cmd_help(t_input *inp);
 void cmd_show(t_input *inp);
+void cmd_stat(t_input *inp);
+void cmd_help(t_input *inp);
 
 /*
 ** DAEMON.C
@@ -126,6 +127,8 @@ void search_ip(t_input *inp);
 
 pid_t check_pidfile(void);
 void daemon_prefsetup(void);
+int get_longest_value(void);
+void print_padding(int size);
 
 /*
 ** ERRORS.C

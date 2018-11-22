@@ -23,6 +23,42 @@ pid_t check_pidfile()
 	return (-1);
 }
 
+void print_padding(int size)
+{
+	int i = 0;
+
+	while (i < size)
+	{
+		printf(" ");
+		i++;
+	}
+}
+
+int get_longest_value()
+{
+	char **line = NULL;
+	char buf[1024 + 1];
+	int longest = 0;
+	FILE *fp;
+
+	fp = fopen(LOGFILE, "r");
+	if (fp)
+	{
+		while (fgets(buf, 1024, fp) != NULL)
+		{
+			line = ft_strsplit(buf, ' ');
+			if (line && line[1])
+			{
+				if (longest < strlen(line[1]))
+					longest = strlen(line[1]);
+				ft_two_del(line);
+			}
+		}
+		return (longest);
+	}
+	return (0);
+}
+
 void daemon_prefsetup()
 {
 	pid_t sid;
