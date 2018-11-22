@@ -11,14 +11,14 @@ saves ip addresses of incoming packets and number of packets from each ip.
 4. Command line interface (cli) should be implemented - another process that
 interacts with the daemon.
 5. The cli should support command:
-* start​ (packets are being sniffed from now on from default iface(eth0))
-* stop​ (packets are not sniffed)
-* show [ip] count ​ (print number of packets received from ip address)
-* select iface [iface] ​ (select interface for sniffing eth0, wlan0, ethN,
+* **start**​ (packets are being sniffed from now on from default iface(eth0))
+* **stop**​ (packets are not sniffed)
+* **show [ip] count** ​ (print number of packets received from ip address)
+* **select iface [iface]** ​ (select interface for sniffing eth0, wlan0, ethN,
 wlanN...)
-* stat​ ​ [iface]​ show all collected statistics for particular interface, if iface
+* **stat​ ​ [iface]** ​ show all collected statistics for particular interface, if iface
 omitted - for all interfaces.
-* ​ --help ​ (show usage information)
+* ​ **--help** ​ (show usage information)
 6. Daemon could be started independently as well as through the cli.
 7. Build automation tool should be used (make is preferable).
 8. C Programing language is preferable to be used.
