@@ -1,8 +1,8 @@
 # network-viewer
 
 ## Foreword
-Project may have problems with leaks due to time constraints, but the main
-functional implemented and works fine.
+Project may have problems with leaks in CLI due to time constraints, but the main
+functional implemented and works fine. Daemon memory usage 0.1% constantly.
 
 ## Usage
 * Install libpcap, if you don't have already.

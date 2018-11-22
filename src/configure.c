@@ -84,8 +84,8 @@ t_config get_configure()
 		else
 		{
 			/* In case if conf file doesn't exist */
-			setconf_var((char*)cvars[i], "wlp2s0");
-			cfg.dev = "wlp2s0";
+			setconf_var((char*)cvars[i], "eth0");
+			cfg.dev = "eth0";
 		}
 	}
 	return (cfg);
