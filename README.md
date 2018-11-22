@@ -1,5 +1,19 @@
 # network-viewer
 
+## Foreword
+Project may have problems with leaks due to time constraints, but the main
+functional implemented and works fine.
+
+## Usage
+* Install libpcap, if you don't have already.
+`sudo apt-get install libpcap-dev`
+* Build project
+`make`
+* Set rights for socket usage
+`sudo chown root:root nviewer; chmod u+s nviewer`
+or just run as root
+`sudo ./nviewer`
+
 ## Task
 Create a service that collects statistic about network traffic.
 
