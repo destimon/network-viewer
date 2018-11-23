@@ -1,9 +1,6 @@
 # network-viewer
 
 ## Foreword
-Project may have problems with leaks in CLI due to time constraints, but the main
-functional implemented and works fine. Daemon memory usage maximum - 0.1%.
-
 Libft - my own C Library. You can see repo in my profile.
 
 ## Usage
