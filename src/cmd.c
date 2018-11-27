@@ -47,50 +47,26 @@ void cmd_show(t_input *inp)
 
 void cmd_stat(t_input *inp)
 {
-	char **line = NULL;
-	char buf[1024 + 1];
-	int longest_len = 0;
-	FILE *fp = NULL;
-
-
-	fp = fopen(LOGFILE, "r");
-	longest_len = get_longest_value();	
-	printf("INTERFACE");
-	print_padding(longest_len - 3);
-	printf("IP   ");
-	printf("PACKETS    \n");
-	printf("---------------------------------\n");
-	if (inp->query && fp)
+	char buf[1024];
+	char *line = NULL;
+	int fd;
+	
+	bzero(buf, 1024);
+	mkfifo("fifo", 0666);
+	fd = open("fifo", O_WRONLY);
+	dprintf(fd, "%s\n", inp->query[0]);
+	if (inp->query[1])
+		dprintf(fd, "%s\n", inp->query[1]);
+	close(fd);
+	fd = open("fifo", O_RDONLY);
+	// read(fd, buf, sizeof(buf) + 1);
+	while (get_next_line(fd, &line) > 0)
 	{
-		while (fgets(buf, 1024, fp) != NULL)
-		{
-			line = ft_strsplit(buf, ' ');
-			if (!line)
-				return ;
-			if (ft_elems(inp->query) > 1)
-			{
-				// printf("%s %s\n", inp->query[1], strtok(line[0], " "));
-				if (strstr(inp->query[1], line[0]))
-				{
-					printf("%s", line[0]);
-					print_padding(longest_len - strlen(line[1]) + 2);
-					printf("%s", line[1]);
-					printf("   ");
-					printf("%s", line[2]);
-				}					
-			}
-			else
-			{
-				printf("%s", line[0]);
-				print_padding(longest_len - strlen(line[1]) + 2);
-				printf("%s", line[1]);
-				printf("   ");
-				printf("%s", line[2]);
-			}
-			ft_two_del(line);
-		}
-		fclose(fp);
+		printf("%s\n", line);
+		free(line);
 	}
+	free(line);
+	close(fd);
 }
 
 void cmd_help(t_input *inp)

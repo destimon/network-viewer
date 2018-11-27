@@ -6,6 +6,7 @@ char *getconf_var(char *varname)
 	FILE *fp;
 	char **var;
 	char *line;
+	char *tmp;
 
 	if (!varname)
 		return (NULL);
@@ -26,10 +27,10 @@ char *getconf_var(char *varname)
 				{
 					if (var[1])
 					{
-						/* then we free 2d array and turn value of var */
-						/* ft_two_del(var); <- Leaks with last iteration. */
 						close(fd);
-						return (var[1]);
+						tmp = strdup(var[1]);
+						ft_two_del(var);
+						return (tmp);
 					}
 				}
 				/* also each step free 2d array */

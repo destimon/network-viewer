@@ -27,7 +27,7 @@ static int is_user_a_goat(void)
 int main(int argc, char **argv)
 {
 	t_input *inp;
-	char *buf;
+	char *buf = NULL;
 	size_t size = 1024 + 1;
 
 	if (argc == 1)
@@ -35,6 +35,8 @@ int main(int argc, char **argv)
 		/* Shell */
 		while (is_user_a_goat())
 		{
+			if (buf)
+				free(buf);
 			buf = (char*)malloc(sizeof(char) * size);
 			printf(PROMPT);
 			if (getline(&buf, &size, stdin) > 0)
@@ -47,7 +49,6 @@ int main(int argc, char **argv)
 					free(inp);
 				}
 			}
-			free(buf);
 		}
 	}
 	else

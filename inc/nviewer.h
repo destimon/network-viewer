@@ -127,6 +127,12 @@ t_config get_configure(void);
 void search_ip(t_input *inp);
 
 /*
+** PCI.C
+*/
+
+void handle_listening(struct s_ip_array sarr);
+
+/*
 ** UTILS.C
 */
 
@@ -134,7 +140,6 @@ pid_t check_pidfile(void);
 void daemon_prefsetup(void);
 int get_longest_value(void);
 void print_padding(int size);
-void sendlist_daemon(t_ip *ip_list);
 int ip_comparsion(const void * a, const void * b);
 
 /*

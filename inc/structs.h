@@ -40,6 +40,14 @@ typedef struct s_ip
         struct s_ip *next;
 }               t_ip;
 
+struct s_ip_array
+{
+        t_ip *ip_array;
+        int array_size;
+        int array_capacity;
+        char *devname;
+};
+
 struct sniff_ip {
         u_char  ip_vhl;                 /* version << 4 | header length >> 2 */
         u_char  ip_tos;                 /* type of service */
