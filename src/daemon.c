@@ -57,3 +57,18 @@ void stop_daemon()
 		}
 	}
 }
+
+void sendlist_daemon(t_ip *ip_list)
+{
+	const char* const socket_name = "/tmp/socket";
+	// const char* const message;
+	struct sockaddr_un name;
+	int socket_fd;
+
+	socket_fd = socket(PF_LOCAL, SOCK_STREAM, 0);
+	name.sun_family = AF_LOCAL;
+	strcpy(name.sun_path, socket_name);
+	connect(socket_fd, (struct sockaddr*)&name, SUN_LEN(&name));
+	write(socket_fd, (struct sockaddr*)&ip_list, sizeof(ip_list));
+	close(socket_fd);
+}

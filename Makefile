@@ -9,7 +9,7 @@ OBJ_DIR 		= ./obj/
 SRC_DIR 		= ./src/
 
 CC 				= gcc
-CFLAGS 			= -I$(HDR_DIR) -I$(LIBFT_HDR_DIR) -Wall -Werror -Wextra
+CFLAGS 			= -I$(HDR_DIR) -I$(LIBFT_HDR_DIR) #-Wall -Werror -Wextra
 
 SRC 			= main.c cmd.c errors.c input.c daemon.c utils.c sniffer.c \
 					configure.c search.c
@@ -22,7 +22,7 @@ LIB 			= $(MAKE) -C $(LIBFT_DIR)
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJ)
-	$(CC) $(OBJ) $(LIBFT_FLAGS) -o $(NAME) -lpcap
+	$(CC) $(OBJ) $(LIBFT_FLAGS) -o $(NAME) -lpcap -lpthread
 
 $(OBJ): | $(OBJ_DIR)
 

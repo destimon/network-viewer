@@ -7,11 +7,14 @@
 #include <string.h>
 #include <ctype.h>
 #include <stdbool.h>
+#include <search.h>
 
 #include <fcntl.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/socket.h>
+#include <sys/un.h>
+#include <pthread.h>
 
 #include <errno.h>
 
@@ -131,6 +134,8 @@ pid_t check_pidfile(void);
 void daemon_prefsetup(void);
 int get_longest_value(void);
 void print_padding(int size);
+void sendlist_daemon(t_ip *ip_list);
+int ip_comparsion(const void * a, const void * b);
 
 /*
 ** ERRORS.C

@@ -52,6 +52,7 @@ void cmd_stat(t_input *inp)
 	int longest_len = 0;
 	FILE *fp = NULL;
 
+
 	fp = fopen(LOGFILE, "r");
 	longest_len = get_longest_value();	
 	printf("INTERFACE");
@@ -86,6 +87,7 @@ void cmd_stat(t_input *inp)
 				printf("   ");
 				printf("%s", line[2]);
 			}
+			ft_two_del(line);
 		}
 		fclose(fp);
 	}

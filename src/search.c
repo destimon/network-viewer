@@ -42,38 +42,37 @@ static t_ip *alloc_ip_array(size_t *arr_size)
 	return (NULL);
 }
 
-static int ip_comparsion(const void * a, const void * b)
-{
-	t_ip *ip1 = (t_ip*)a;
-	t_ip *ip2 = (t_ip*)b;
-
-   return 
-        ip1->address > ip2->address
-        ? 1                 
-        : ip1->address == ip2->address
-        ? 0                 
-        : -1              
-        ;                   
-}
-
 void search_ip(t_input *inp)
 {
 	uint32_t target_ip = 0;
 	t_ip *ip_arr = NULL;
 	t_ip *result = NULL;
-	t_ip key;
 	size_t arr_size = 0;
+	t_ip key;
 
-	target_ip = inet_addr(inp->query[1]);
-	ip_arr = alloc_ip_array(&arr_size);
-	qsort(ip_arr, arr_size, sizeof(t_ip), ip_comparsion);
-	key.address = target_ip;
-	result = bsearch(&key, ip_arr, arr_size, sizeof(t_ip), ip_comparsion);
-	if (result)
-	{
-		printf("Request Found!\n--------------\nIP\t%s\nPackets\t%ld\n", inp->query[1], result->packets);
-		printf("--------------\n");
-	}
-	else
-		printf("requested IP not found\n");
+	char buf[1024];
+	bzero(buf, 1024);
+	int fd;
+	mkfifo("fifo", 0666);
+	fd = open("fifo", O_WRONLY);
+	write(fd, inp->query[1], strlen(inp->query[1]));
+	close(fd);
+	fd = open("fifo", O_RDONLY);
+	read(fd, buf, sizeof(buf) + 1);
+	close(fd);
+	printf("packets: %s\n", buf);
+
+	// exit (0);
+	// target_ip = inet_addr(inp->query[1]);
+	// ip_arr = alloc_ip_array(&arr_size);
+	// qsort(ip_arr, arr_size, sizeof(t_ip), ip_comparsion);
+	// key.address = target_ip;
+	// result = bsearch(&key, ip_arr, arr_size, sizeof(t_ip), ip_comparsion);
+	// if (result)
+	// {
+	// 	printf("Request Found!\n--------------\nIP\t%s\nPackets\t%ld\n", inp->query[1], result->packets);
+	// 	printf("--------------\n");
+	// }
+	// else
+	// 	printf("requested IP not found\n");
 }

@@ -41,7 +41,11 @@ int main(int argc, char **argv)
 			{
 				inp = alloc_input(ft_strsplit(buf, ' '));
 				if (inp)
+				{
 					entry_switcher(inp);
+					ft_two_del(inp->query);
+					free(inp);
+				}
 			}
 			free(buf);
 		}
@@ -51,7 +55,10 @@ int main(int argc, char **argv)
 		/* Args handle */
 		inp = alloc_input(&argv[1]);
 		if (inp)
+		{
 			entry_switcher(inp);
+			free(inp);
+		}
 	}
 	return (0);
 }

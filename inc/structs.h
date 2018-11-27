@@ -35,8 +35,9 @@ typedef struct s_config
 
 typedef struct s_ip
 {
-        uint32_t address;
+        uint64_t address;
         size_t packets;
+        struct s_ip *next;
 }               t_ip;
 
 struct sniff_ip {

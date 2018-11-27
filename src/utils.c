@@ -47,17 +47,38 @@ int get_longest_value()
 		while (fgets(buf, 1024, fp) != NULL)
 		{
 			line = ft_strsplit(buf, ' ');
-			if (line && line[1])
+			if (!line)
+				return (0);
+			if (line[1])
 			{
 				if (longest < (int)strlen(line[1]))
 					longest = strlen(line[1]);
-				ft_two_del(line);
 			}
+			ft_two_del(line);
 		}
 		return (longest);
 	}
 	return (0);
 }
+
+int ip_comparsion(const void * a, const void * b)
+{
+	t_ip *ip1 = (t_ip*)a;
+	t_ip *ip2 = (t_ip*)b;
+
+	uint64_t va = ip1->address;
+	uint64_t vb = ip2->address;
+
+   return 
+        va < vb
+        ? 1                 
+        : va == vb
+        ? 0                 
+        : -1              
+        ;                   
+}
+
+
 
 void daemon_prefsetup()
 {
